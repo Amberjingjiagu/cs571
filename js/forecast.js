@@ -22,6 +22,32 @@ function validation(){
 	return valid;
 }
 
+function GetMap(latitude, longitude) {
+	var map = new OpenLayers.Map("current-weather-map");
+	var position = new OpenLayers.LonLat(longitude, latitude).transform(new OpenLayers.Projection("EPSG:4326"), new OpenLayers.Projection("EPSG:900913"));
+	var mapnik = new OpenLayers.Layer.OSM();
+	var cloud = new OpenLayers.Layer.XYZ(
+		"clouds",
+		"http://${s}.tile.openweathermap.org/map/clouds/${z}/${x}/${y}.png",
+		{
+			isBaseLayer: false,
+			opacity: 0.6,
+			sphericalMercator: ture
+		}
+	);
+	var precipitation = new OpenLayers.Layer.XYZ(
+		"precipitation",
+		"http://${s}.tile.openweather.org/map/precipitation/${z}/${x}/${y}.png",
+		{
+			isBaseLayer: false,
+			opacity: 0.6,
+			sphericalMercator: true
+		}
+	);
+	map.addLayers([mapnik, cloud, precipitation]);
+	map.setCenter(position, 10);
+}
+
 function data_deploy(data, city, state, celsius){
 	//Part 1: display current weather 
 	var cur = data.currently;
@@ -67,6 +93,8 @@ function data_deploy(data, city, state, celsius){
 	$('#current-weather-table #Visibility').text(cur.visibility.toFixed(2));
 	$('#current-weather-table #Sunrise').text(data.daily.data[0].sunriseTime);
 	$('#current-weather-table #Sunset').text(data.daily.data[0].sunsetTime);
+
+	GetMap(data.latitude, data.longitude);
 }
 
 
