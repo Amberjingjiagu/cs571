@@ -22,7 +22,7 @@ function validation(){
 	return valid;
 }
 
-function data_deploy(data, city, state){
+function data_deploy(data, city, state, celsius){
 	//Part 1: display current weather 
 	var cur = data.currently;
 	var icon_url = '';
@@ -47,6 +47,26 @@ function data_deploy(data, city, state){
 		$('#current-weather-sum #current-weather-temp').text(parseInt(cur.temperature)+'<sup>o</sup>F');
 	}
 	$('#current-weather-sum #current-weather-lhtemp').text(parseInt(data.daily.data[0].temperatureMax)+' | '+parseInt(data.daily.data[0].temperatureMin));
+	// This is precipIntensity
+	if (cur.precipIntensity < 0.002){
+		$('#current-weather-table #Precipitation').text('None');
+	} else if (cur.precipIntensity < 0.017){
+		$('#current-weather-table #Precipitation').text('Very Light');
+	} else if (cur.precipIntensity < 0.1){
+		$('#current-weather-table #Precipitation').text('Light');
+	} else if (cur.precipIntensity < 0.4){
+		$('#current-weather-table #Precipitation').text('Moderate');
+	} else {
+		$('#current-weather-table #Precipitation').text('Heavy');
+	}
+
+	$('#current-weather-table #Chance-of-Rain').text((cur.precipProbability * 100) + '%');
+	$('#current-weather-table #Wind-Speed').text(cur.windSpeed.toFixed(2));
+	$('#current-weather-table #Dew-Point').text(cur.dewPoint.toFixed(2));
+	$('#current-weather-table #Humidity').text(cur.humidity.toFixed(2) * 100 + '%');
+	$('#current-weather-table #Visibility').text(cur.visibility.toFixed(2));
+	$('#current-weather-table #Sunrise').text(data.daily.data[0].sunriseTime);
+	$('#current-weather-table #Sunset').text(data.daily.data[0].sunsetTime);
 }
 
 
@@ -82,7 +102,7 @@ function search_submit(){
       $.post("forecast.io.php", 
       	{url: url2},
       	function(data){
-         	data_deploy(data, city, state);
+         	data_deploy(data, city, state, celsius);
        	},
        	"json"
       );
@@ -112,18 +132,3 @@ function init(){
 }
 
 $(document).ready(init);
-/*
-
-$.ajax({	
-	url:	'forecast.php',
-	//	this is	the	parameter	list
-	data:	{	latitude:	,	
-					longtitude:	,	
-	},
-	type:	'GET',
-	success:	function(output)	{
-		
-	},
-	error:	function(){
-	}
-});*/
