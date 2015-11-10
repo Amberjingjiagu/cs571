@@ -48,6 +48,7 @@ function GetMap(latitude, longitude) {
 	map.setCenter(position, 10);
 }
 
+
 function data_deploy(data, city, state, celsius){
 	//Part 1: display current weather 
 	var cur = data.currently;
@@ -73,6 +74,7 @@ function data_deploy(data, city, state, celsius){
 		$('#current-weather-sum #current-weather-temp').text(parseInt(cur.temperature)+'<sup>o</sup>F');
 	}
 	$('#current-weather-sum #current-weather-lhtemp').text(parseInt(data.daily.data[0].temperatureMax)+' | '+parseInt(data.daily.data[0].temperatureMin));
+
 	// This is precipIntensity
 	if (cur.precipIntensity < 0.002){
 		$('#current-weather-table #Precipitation').text('None');
