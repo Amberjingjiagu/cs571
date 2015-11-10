@@ -22,6 +22,34 @@ function validation(){
 	return valid;
 }
 
+function data_deploy(data, city, state){
+	//Part 1: display current weather 
+	var cur = data.currently;
+	var icon_url = '';
+	switch (cur.icon){
+		case 'clear-day': icon_url = 'http://cs-server.usc.edu:45678/hw/hw8/images/clear.png'; break;
+		case 'clear-night': icon_url = 'http://cs-server.usc.edu:45678/hw/hw8/images/clear_night.png'; break;
+		case 'rain': icon_url = 'http://cs-server.usc.edu:45678/hw/hw8/images/rain.png'; break;
+		case 'snow': icon_url = 'http://cs-server.usc.edu:45678/hw/hw8/images/snow.png'; break;
+		case 'sleet': icon_url = 'http://cs-server.usc.edu:45678/hw/hw8/images/sleet.png'; break;
+		case 'wind': icon_url = 'http://cs-server.usc.edu:45678/hw/hw8/images/wind.png'; break;
+		case 'fog': icon_url = 'http://cs-server.usc.edu:45678/hw/hw8/images/fog.png'; break;
+		case 'cloudy': icon_url = 'http://cs-server.usc.edu:45678/hw/hw8/images/cloudy.png'; break;
+		case 'partly-cloudy-day': icon_url = 'http://cs-server.usc.edu:45678/hw/hw8/images/cloud_day.png'; break;
+		case 'partly-cloudy-night': icon_url = 'http://cs-server.usc.edu:45678/hw/hw8/images/cloud_night.png'; break;
+	}
+
+	$('#current-weather-sum #current-weather-icon').attr('src', icon_url);
+	$('#current-weather-sum #current-weather-desciption').text('Mostly '+cur.summary+' in '+city+', '+state);
+	if (celsius){
+		$('#current-weather-sum #current-weather-temp').text(parseInt(cur.temperature)+'<sup>o</sup>C');
+	} else {
+		$('#current-weather-sum #current-weather-temp').text(parseInt(cur.temperature)+'<sup>o</sup>F');
+	}
+	$('#current-weather-sum #current-weather-lhtemp').text(parseInt(data.daily.data[0].temperatureMax)+' | '+parseInt(data.daily.data[0].temperatureMin));
+}
+
+
 // click the submit button
 function search_submit(){
 	$('.text-danger').text('');
@@ -51,49 +79,13 @@ function search_submit(){
       	url2 = url2 + '?units=si';
       }
       // url2 is the request url
-      $.ajax({	
-				url:'http://thecasery.com/phptest/test.php',
-				//	this is	the	parameter	list
-				data:	{url: url2},
-				type:	'GET',
-		    async: false,
-		    jsonpCallback: 'jsonCallback',
-		    contentType: "application/json",
-		    dataType: 'jsonp',
-		    success: function(json) {
-		       alert(json.latitude);
-		    },
-		    error: function(e) {
-		       console.log(e.message);
-		    }
-			});
-
-      // This is the second json request
-	    /*$.getJSON(url2, function (data, textStatus){
-	    	 //Part 1: display current weather 
-	    	var cur = data.currently;
-	    	var icon_url = '';
-	    	switch (cur.icon){
-	    		case 'clear-day': icon_url = 'http://cs-server.usc.edu:45678/hw/hw8/images/clear.png'; break;
-	    		case 'clear-night': icon_url = 'http://cs-server.usc.edu:45678/hw/hw8/images/clear_night.png'; break;
-	    		case 'rain': icon_url = 'http://cs-server.usc.edu:45678/hw/hw8/images/rain.png'; break;
-	    		case 'snow': icon_url = 'http://cs-server.usc.edu:45678/hw/hw8/images/snow.png'; break;
-	    		case 'sleet': icon_url = 'http://cs-server.usc.edu:45678/hw/hw8/images/sleet.png'; break;
-	    		case 'wind': icon_url = 'http://cs-server.usc.edu:45678/hw/hw8/images/wind.png'; break;
-	    		case 'fog': icon_url = 'http://cs-server.usc.edu:45678/hw/hw8/images/fog.png'; break;
-	    		case 'cloudy': icon_url = 'http://cs-server.usc.edu:45678/hw/hw8/images/cloudy.png'; break;
-	    		case 'partly-cloudy-day': icon_url = 'http://cs-server.usc.edu:45678/hw/hw8/images/cloud_day.png'; break;
-	    		case 'partly-cloudy-night': icon_url = 'http://cs-server.usc.edu:45678/hw/hw8/images/cloud_night.png'; break;
-	    	}
-
-	    	$('#current-weather-sum #current-weather-icon').attr('src', icon_url);
-	    	$('#current-weather-sum #current-weather-desciption').text('Mostly '+cur.summary+' in '+city+', '+state);
-	    	if (celsius){
-	    		$('#current-weather-sum #current-weather-temp').text(parseInt(cur.temperature)+'<sup>o</sup>C');
-	    	} else {
-	    		$('#current-weather-sum #current-weather-temp').text(parseInt(cur.temperature)+'<sup>o</sup>F');
-	    	}
-			});*/
+      $.post("forecast.io.php", 
+      	{url: url2},
+      	function(data){
+         	data_deploy(data, city, state);
+       	},
+       	"json"
+      );
     });
   }
 		//$("#search-form").submit();
