@@ -16,7 +16,7 @@
 </head>
 <body class='container text-center'>
 	<h1>Forecast Search</h1>
-	<p class='test'></p>
+	<p class='test'><sup>&#x2103;<sup></p>
 	<div class='container div-search'>
 		<form class='form-inline' id='search-form'>
 			<!-- Street -->
@@ -157,7 +157,19 @@
 	    	<div id='current-weather-map'>
 	    	</div>
 	    </div>
-	    <div role="tabpanel" class="tab-pane" id="oneday">one day</div>
+	    <div role="tabpanel" class="tab-pane" id="oneday">
+	    	<table class='table table-responsive' id='oneday-table'>
+	    		<thead>
+        		<tr>
+            	<th class='col-xs-3 col-sm-2'>Time</th>
+            	<th class='col-xs-2 col-sm-2'>Summary</th>
+            	<th class='col-xs-3 col-sm-2'>Cloud Cover</th>
+            	<th class='col-xs-2 col-sm-2'>Temp</th>
+            	<th class='col-xs-2 col-sm-2'>View Details</th>
+        		</tr>
+    			</thead>
+  			</table>
+	    </div>
 	    <div role="tabpanel" class="tab-pane" id="oneweek">one week</div>
 	  </div>
 	</div>
