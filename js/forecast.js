@@ -1,8 +1,3 @@
-// submit the form
-function form_submit(){
-
-}
-
 // valid input form
 function validation(){
 	var valid = true;
@@ -54,7 +49,7 @@ function time_transfer(ori_time){
 	h = time.getHours(), // 0-24 format
 	m = time.getMinutes();
 	
-	if (h > 12){
+	if (h >= 12){
 		str = ('00' + (h - 12)).substr(-2) + ':' + ('00' + m).substr(-2) + ' PM';
 	} else if (h == 0){
 		str = '12:' + ('00' + m).substr(-2) + ' AM';
@@ -63,6 +58,26 @@ function time_transfer(ori_time){
 	}
 
 	return str;
+}
+
+function time_day_week(ori_time){
+	var time = new Date(ori_time);
+	var day = time.getUTCDay();
+	var day_name = '';
+	switch (day){
+		case 0: day_name = 'Sunday'; break;
+		case 1: day_name = 'Monday'; break;
+		case 2: day_name = 'Tuesday'; break;
+		case 3: day_name = 'Wednesday'; break;
+		case 4: day_name = 'Thursday'; break;
+		case 5: day_name = 'Friday'; break;
+		case 6: day_name = 'Saturday'; break;
+	}
+	return day_name;
+}
+
+function time_day_month(ori_time){
+	var time = new Date(ori_time);
 }
 
 function icon_transfer(ori_icon){
@@ -127,8 +142,12 @@ function data_deploy(data, city, state, celsius){
 	GetMap(data.latitude, data.longitude);
 
 	/* part 2: display 24hour weather */
-	$('.oneday-tr').remove();
+	$('#oneday table').remove();
+	$('#oneday .collapse').remove();
 	var hour = data.hourly;
+
+	// This is head
+	$('#oneday').append("<table class='table table-responsive' id='oneday-table'><thead><tr><th class='col-xs-3 col-sm-2'>Time</th><th class='col-xs-2 col-sm-2'>Summary</th><th class='col-xs-3 col-sm-2'>Cloud Cover</th><th class='col-xs-2 col-sm-2'>Temp</th><th class='col-xs-2 col-sm-2'>View Details</th></tr></thead></table>");
 
 	for (var i = 0; i < 24; i++){
 		var time_str = time_transfer(hour.data[i].time);
@@ -150,11 +169,22 @@ function data_deploy(data, city, state, celsius){
 			pressure = pressure + 'mb';
 		}
 
-		var sub_table = "<table class='table'><thead><tr><th class='col-xs-3 col-sm-3'>Wind</th><th class='col-xs-3 col-sm-3'>Humidity</th><th class='col-xs-3 col-sm-3'>Visibility</th><th class='col-xs-3 col-sm-3'>Pressure</th></tr></thead><tr><td>"+wind+"</td><td>"+humidity+"</td><td>"+visibility+"</td><td>"+pressure+"</td></tr></table>";
+		var sub_table = "<div class='collapse' id='tab"+i+"'><div class='well'><div class='table-responsive text-center'><table><tbody><tr style='font-size:16px;background-color:white;'><th class='text-center col-xs-3 col-sm-3'>Wind</th><th class='text-center col-xs-3 col-sm-3'>Humidity</th><th class='text-center col-xs-3 col-sm-3'>Visibility</th><th class='text-center col-xs-3 col-sm-3'>Pressure</th></tr><tr><td>"+wind+"</td><td>"+humidity+"</td><td>"+visibility+"</td><td>"+pressure+"</td></tr></tbody></table></div></div></div>";
 
-		$('#oneday-table').append("<tr class='oneday-tr'><td>"+time_str+"</td><td><img style='max-height:50px;' src='"+icon_url+"'></td><td>"+cloud_cover+"</td><td>"+temp+"</td><td><button><span class='glyphicon glyphicon-plus' aria-hidden='true'></span></button></td></tr>");
-			//<a role='button' data-toggle='collapse' href='#oneday-collapse-"+i+"' aria-expanded='false' aria-controls='oneday-collapse-"+i+"'><span class='glyphicon glyphicon-plus' aria-hidden='true'></span></a></td></tr><div class='collapse' id='oneday-collapse-"+i+"'><div class='well'>"+sub_table+"</div></div>");
+		$('#oneday').append("<table class=''><tr class='oneday-tr'><td>"+time_str+"</td><td><img style='max-height:50px;' src='"+icon_url+"'></td><td>"+cloud_cover+"</td><td>"+temp+"</td><td class='text-center'><a data-toggle='collapse' aria-expanded='false' aria-controls='tab"+i+"' href='#tab"+i+"'><span class='glyphicon glyphicon-plus'></span></a></td></tr></table>"+sub_table);
 	}
+
+	/* Part 3: 7 days forecast*/
+	var day = data.daily;
+
+	for (var i = 1; i < 8; i++){
+		$('#day'+i).find('#day').text(time_day_week(day.data[i].time));
+		$('#day'+i).find('#month-day').text('Nov. 1st');
+		$('#day'+i).find('#icon').attr('src',icon_transfer(day.data[i].icon)).css('max-width','100px');
+		$('#day'+i).find('#min-temp').text(parseInt(day.data[i].temperatureMin)+'°');
+		$('#day'+i).find('#max-temp').text(parseInt(day.data[i].temperatureMax)+'°');
+	}
+
 }
 
 
@@ -196,7 +226,6 @@ function search_submit(){
       );
     });
   }
-		//$("#search-form").submit();
 }
 
 // clear data

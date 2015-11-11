@@ -158,19 +158,91 @@
 	    	</div>
 	    </div>
 	    <div role="tabpanel" class="tab-pane" id="oneday">
-	    	<table class='table table-responsive' id='oneday-table'>
-	    		<thead>
-        		<tr>
-            	<th class='col-xs-3 col-sm-2'>Time</th>
-            	<th class='col-xs-2 col-sm-2'>Summary</th>
-            	<th class='col-xs-3 col-sm-2'>Cloud Cover</th>
-            	<th class='col-xs-2 col-sm-2'>Temp</th>
-            	<th class='col-xs-2 col-sm-2'>View Details</th>
-        		</tr>
-    			</thead>
-  			</table>
 	    </div>
-	    <div role="tabpanel" class="tab-pane" id="oneweek">one week</div>
+	    <div role="tabpanel" class="tab-pane" id="oneweek">
+	    	<div class='row'>
+		    	<div id='day1' style='background-color:#367db5; width: 13%; min-height: 400px; display:inline-block;'>
+		    		<p id='day'></p>
+		    		<p id='month-day'></p>
+		    		<img id='icon'/>
+		    		<p>Min Temp</p>
+		    		<p id='min-temp'></p>
+		    		<p>Max Temp</p>
+		    		<p id='max-temp'></p>
+		    	</div>
+		    	<div id='day2' style='background-color:#ec4444; width: 13%; min-height: 400px; display:inline-block;'>
+		    		<p id='day'></p>
+		    		<p id='month-day'></p>
+		    		<img id='icon'/>
+		    		<p>Min Temp</p>
+		    		<p id='min-temp'></p>
+		    		<p>Max Temp</p>
+		    		<p id='max-temp'></p>
+		    	</div>
+		    	<div id='day3' style='background-color:#e58d4f; width: 13%; min-height: 400px; display:inline-block;'>
+		    		<p id='day'></p>
+		    		<p id='month-day'></p>
+		    		<img id='icon'/>
+		    		<p>Min Temp</p>
+		    		<p id='min-temp'></p>
+		    		<p>Max Temp</p>
+		    		<p id='max-temp'></p>
+		    	</div>
+		    	<div id='day4' style='background-color:#a7a439; width: 13%; min-height: 400px; display:inline-block;'>
+		    		<p id='day'></p>
+		    		<p id='month-day'></p>
+		    		<img id='icon'/>
+		    		<p>Min Temp</p>
+		    		<p id='min-temp'></p>
+		    		<p>Max Temp</p>
+		    		<p id='max-temp'></p>
+		    	</div>
+		    	<div id='day5' style='background-color:#f37c7e; width: 13%; min-height: 400px; display:inline-block;'>
+		    		<p id='day'></p>
+		    		<p id='month-day'></p>
+		    		<img id='icon'/>
+		    		<p>Min Temp</p>
+		    		<p id='min-temp'></p>
+		    		<p>Max Temp</p>
+		    		<p id='max-temp'></p>
+		    	</div>
+		    	<div id='day6' style='background-color:#ce4571; width: 13%; min-height: 400px; display:inline-block;'>
+		    		<p id='day'></p>
+		    		<p id='month-day'></p>
+		    		<img id='icon'/>
+		    		<p>Min Temp</p>
+		    		<p id='min-temp'></p>
+		    		<p>Max Temp</p>
+		    		<p id='max-temp'></p>
+		    	</div>
+		    	<div id='day7' style='background-color:#f0f0f0; width: 13%; min-height: 400px; display:inline-block;'>
+		    		<p id='day'></p>
+		    		<p id='month-day'></p>
+		    		<img id='icon'/>
+		    		<p>Min Temp</p>
+		    		<p id='min-temp'></p>
+		    		<p>Max Temp</p>
+		    		<p id='max-temp'></p>
+		    	</div>
+		    </div>
+				<!-- Modal -->
+				<div class="modal fade" id="tempModal" tabindex="-1" role="dialog" aria-labelledby="tempModalLabel">
+				  <div class="modal-dialog" role="document">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+				      </div>
+				      <div class="modal-body">
+				      </div>
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				        <button type="button" class="btn btn-primary">Save changes</button>
+				      </div>
+				    </div>
+				  </div>
+				</div>
+	    </div>
 	  </div>
 	</div>
 </body>
