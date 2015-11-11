@@ -3,17 +3,53 @@ body{
 	background-size: cover;
 }
 
-.div-search{
+.transparent-bg{
 	background-color: rgba(245, 245, 245, 0.4);
 }
 
-.form-logo{
-	display:block; 
-	float:right;
-		width: 20%;
+.bg-color-white{
+	background-color: white;
 }
 
-.form-logo img{
-	max-width: 200px;
+.logo-elem{
+	display: inline-block;
+	vertical-align: middle;
+	margin: 0;
 	max-height: 50px;
+}
+
+.logo-elem img{
+	max-height: 50px;
+}
+
+#current{
+	padding: 0;
+}
+
+/* Rewrite nav-tab color */
+.nav-tabs>li >a {
+	background-color: white;
+	color: #337ab7;
+}
+
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
+	background-color: #337ab7;
+	color: white;
+}
+/* Belowing are some classes to help align element, such as margin, padding */
+.padding-5{
+	padding: 5px;
+}
+
+.margin-right3{
+	margin-right: 3px;
+}
+
+.margin-right14{
+	margin-right: 14px;
+}
+
+#space-search-form{
+	width: 150px;
+	height: 50px;
 }

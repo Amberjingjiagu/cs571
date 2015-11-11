@@ -1,20 +1,4 @@
-// valid input form
-function validation(){
-	var valid = true;
-	if ($.trim($('#form-street').val()).length <= 0) {
-		$('#invalid-street').text('Please	enter	the	street address');
-    valid = false;
-	}
-	if ($.trim($('#form-city').val()).length <= 0) {
-		$('#invalid-city').text('Please	enter the	city');
-    valid = false;
-	}
-	if ($('#form-state').get(0).selectedIndex == 0) {
-		$('#invalid-state').text('Please select a state');
-    valid = false;
-	}
-
-	return valid;
+var autoscale_elem = function(){
 }
 
 function GetMap(latitude, longitude) {
@@ -118,42 +102,42 @@ function data_deploy(data, city, state, celsius){
 	/* Part 1: display current weather */ 
 	var cur = data.currently;
 
-	$('#current-weather-sum #current-weather-icon').attr('src', icon_transfer(cur.icon));
-	$('#current-weather-sum #current-weather-desciption').text('Mostly '+cur.summary+' in '+city+', '+state);
-	$('#current-weather-sum #current-weather-temp').text(parseInt(cur.temperature));
-	$('#current-weather-sum #current-weather-lhtemp').text(parseInt(data.daily.data[0].temperatureMax)+'° | '+parseInt(data.daily.data[0].temperatureMin)+'°');
+	$('#current #icon').attr('src', icon_transfer(cur.icon));
+	$('#current #summary').text('Mostly '+cur.summary+' in '+city+', '+state);
+	$('#current #temperature').text(parseInt(cur.temperature));
+	$('#current #temperatureMinMax').text(parseInt(data.daily.data[0].temperatureMax)+'° | '+parseInt(data.daily.data[0].temperatureMin)+'°');
 
 	// This is precipIntensity
 	if (cur.precipIntensity < 0.002){
-		$('#current-weather-table #Precipitation').text('None');
+		$('#current #precipIntensity').text('None');
 	} else if (cur.precipIntensity < 0.017){
-		$('#current-weather-table #Precipitation').text('Very Light');
+		$('#current #precipIntensity').text('Very Light');
 	} else if (cur.precipIntensity < 0.1){
-		$('#current-weather-table #Precipitation').text('Light');
+		$('#current #precipIntensity').text('Light');
 	} else if (cur.precipIntensity < 0.4){
-		$('#current-weather-table #Precipitation').text('Moderate');
+		$('#current #precipIntensity').text('Moderate');
 	} else {
-		$('#current-weather-table #Precipitation').text('Heavy');
+		$('#current #precipIntensity').text('Heavy');
 	}
 
-	$('#current-weather-table #Chance-of-Rain').text((cur.precipProbability * 100) + '%');
-	$('#current-weather-table #Wind-Speed').text(cur.windSpeed.toFixed(2));
-	$('#current-weather-table #Dew-Point').text(cur.dewPoint.toFixed(2));
-	$('#current-weather-table #Humidity').text(cur.humidity.toFixed(2) * 100 + '%');
-	$('#current-weather-table #Visibility').text(cur.visibility.toFixed(2));
-	$('#current-weather-table #Sunrise').text(time_transfer(data.daily.data[0].sunriseTime));
-	$('#current-weather-table #Sunset').text(time_transfer(data.daily.data[0].sunsetTime));
+	$('#current #precipProbability').text((cur.precipProbability * 100) + '%');
+	$('#current #windSpeed').text(cur.windSpeed.toFixed(2));
+	$('#current #dewPoint').text(cur.dewPoint.toFixed(2));
+	$('#current #humidity').text(cur.humidity.toFixed(2) * 100 + '%');
+	$('#current #visibility').text(cur.visibility.toFixed(2));
+	$('#current #sunriseTime').text(time_transfer(data.daily.data[0].sunriseTime));
+	$('#current #sunsetTime').text(time_transfer(data.daily.data[0].sunsetTime));
 
 	if (celsius){
-		$('#current-weather-sum #current-weather-temp').append('<sup>℃</sup>');
-		$('#current-weather-table #Wind-Speed').append('m/s');
-		$('#current-weather-table #Dew-Point').append('℃');
-		$('#current-weather-table #Visibility').append('km');
+		$('#current #temperature').append('<sup>℃</sup>');
+		$('#current #windSpeed').append('m/s');
+		$('#current #dewPoint').append('℃');
+		$('#current #visibility').append('km');
 	} else {
-		$('#current-weather-sum #current-weather-temp').append('<sup>℉</sup>');
-		$('#current-weather-table #Wind-Speed').append('mph');
-		$('#current-weather-table #Dew-Point').append('℉');
-		$('#current-weather-table #Visibility').append('mi');
+		$('#current #temperature').append('<sup>℉</sup>');
+		$('#current #windSpeed').append('mph');
+		$('#current #dewPoint').append('℉');
+		$('#current #visibility').append('mi');
 	}
 	$('#facebook').attr("href","https://www.facebook.com/dialog/feed?app_id=1674194266127138&display=page&caption=Weather%20information%20from%20forecast.io&picture="+icon_transfer(cur.icon)+"&name=Current Weather in "+city+", "+state+"&description="+cur.summary+" "+$('#current-weather-sum #current-weather-temp').text()+"&link=http://thecasery.com/phptest&redirect_uri="+window.location.href+"");
 	GetMap(data.latitude, data.longitude);
@@ -235,27 +219,46 @@ function data_deploy(data, city, state, celsius){
 	});
 }
 
+// valid input form
+function validation(){
+	var valid = true;
+	if ($.trim($('#search-form #street').val()).length <= 0) {
+		$('#search-form #invalid-street').text('Please enter the street address').removeClass('hidden');
+    valid = false;
+	}
+	if ($.trim($('#search-form #city').val()).length <= 0) {
+		$('#search-form #invalid-city').text('Please enter the city').removeClass('hidden');
+    valid = false;
+	}
+	if ($('#search-form #state').get(0).selectedIndex == 0) {
+		$('#search-form #invalid-state').text('Please select a state').removeClass('hidden');
+    valid = false;
+	}
+
+	return valid;
+}
 
 // click the submit button
 function search_submit(){
-	$('.text-danger').text('');
+	$('.invalid-form-input').text('');
 	if (validation()){
-		var northeast_lat, northeast_lng, southwest_lat, southwest_lng;
-		var street = $('#form-street').val();
-		var city = $('#form-city').val();
-		var state = $('#form-state option:selected').val();
+		var street = $('#search-form #street').val();
+		var city = $('#search-form #city').val();
+		var state = $('#search-form #state option:selected').val();
 		var celsius = false;
-		if ($('#form-degree input').last().is(':checked')){
+		if ($('#search-form #degree input').last().is(':checked')){
       celsius = true;
     }
+
 		// Use Google Maps Geocoding API, edit an url
 		var url = "https://maps.googleapis.com/maps/api/geocode/json?address="+street+", "+city+", "+state+"&key=AIzaSyDko4GoAGeivRVj0rl2A_xa5s_Gjo6F0Jg";
+
 		// Get the geo-location of the addr
 		$.getJSON(url, function (data, textStatus) {
-      northeast_lat = data.results[0].geometry.viewport.northeast.lat;
-      northeast_lng = data.results[0].geometry.viewport.northeast.lng;
-      southwest_lat = data.results[0].geometry.viewport.southwest.lat;
-      southwest_lng = data.results[0].geometry.viewport.southwest.lng;
+      var northeast_lat = data.results[0].geometry.viewport.northeast.lat;
+      var northeast_lng = data.results[0].geometry.viewport.northeast.lng;
+      var southwest_lat = data.results[0].geometry.viewport.southwest.lat;
+      var southwest_lng = data.results[0].geometry.viewport.southwest.lng;
 
       // if the first request succeed, we try to get the forecast info
       var url2 = "https://api.forecast.io/forecast/48ba3483c1b320fd8c8a4deb4754f897/"+(northeast_lat+southwest_lat)/2+","+(northeast_lng+southwest_lng)/2;
@@ -263,10 +266,12 @@ function search_submit(){
       if (celsius){
       	url2 = url2 + '?units=si';
       }
+      		$('.test').text(url2);
       // url2 is the request url
       $.post("http://amber-env.elasticbeanstalk.com/", 
       	{url: url2},
       	function(data){
+      		$('#div-results').removeClass('hidden');
          	data_deploy(data, city, state, celsius);
        	},
        	"json"
@@ -277,24 +282,27 @@ function search_submit(){
 
 // clear data
 function search_clear(){
-	$('#form-street').val('');
-	$('#form-city').val('');
-	$('#form-state').get(0).selectedIndex = 0;
-	$('#form-dgree input').first().prop('checked',true);
+	$('#search-form #street').val('');
+	$('#search-form #city').val('');
+	$('#search-form #state').get(0).selectedIndex = 0;
+	$('#search-form #degree input').first().prop('checked',true);
+	$('.invalid-form-input').text('').addClass('hidden');
+	if (!$('#div-results').hasClass('hidden')){
+		$('#div-results').addClass('hidden');
+	}
 }
 
 // register all the event
 function init(){
 	$('#form-submit').off('click').on('click', function(e){
 		e.preventDefault();
-		$('.div__results').css('display','block');
 		search_submit();
 	});
 	$('#form-clear').off('click').on('click', function(e){
 		e.preventDefault();	// This is important, to keep page not refresh!
 		search_clear();
-		$('.div__results').css('display','none');
 	});
+	window.resize = autoscale_elem;
 }
 
 $(document).ready(init);
