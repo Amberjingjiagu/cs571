@@ -1,36 +1,44 @@
 <html>
 <head>
+	<!-- Support for-->
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1">
 
+	<!-- Latest 1.x compiled and minified JQuery. Bootstrap need jquery -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<!-- Latest compiled and minified CSS -->
-	<script src='js/jquery-1.11.3.min.js'></script>
-	<link rel="stylesheet" href="css/bootstrap.min.css">
-	<link rel='stylesheet' href='css/forecast.css'>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
 	<!-- Latest compiled and minified JavaScript -->
-	<script src="js/bootstrap.min.js"></script>
-	<script src='js/forecast.js'></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
 
+	<!-- Customized CSS and JS script written by Jingjia Gu for this page -->
+	<script src='forecast.js'></script>
+	<link rel='stylesheet' href='forecast.css'>
+
+	<!-- Openlayer Map library -->
 	<link rel="stylesheet" href="http://openlayers.org/en/v3.10.1/css/ol.css" type="text/css">
 	<script src="http://openlayers.org/api/OpenLayers.js"></script>
-	<script>
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '1674194266127138',
-      xfbml      : true,
-      version    : 'v2.5'
-    });
-  };
 
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "//connect.facebook.net/en_US/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
+	<!-- This is facebook SDK -->
+	<script>
+	  window.fbAsyncInit = function() {
+	    FB.init({
+	      appId      : '1674194266127138',
+	      xfbml      : true,
+	      version    : 'v2.5'
+	    });
+	  };
+
+	  (function(d, s, id){
+	    var js, fjs = d.getElementsByTagName(s)[0];
+	    if (d.getElementById(id)) {return;}
+	    js = d.createElement(s); js.id = id;
+	    js.src = "//connect.facebook.net/en_US/sdk.js";
+	    fjs.parentNode.insertBefore(js, fjs);
+	  }(document, 'script', 'facebook-jssdk'));
 	</script>
 </head>
+
 <body class='container text-center'>
 	<h1>Forecast Search</h1>
 	<div class='container div-search'>

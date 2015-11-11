@@ -1,3 +1,5 @@
 <?php
-$json = file_get_contents($_POST[url]);
-echo $json;
+	header('Access-Control-Allow-Origin:*');
+	$json = file_get_contents($_POST[url]);
+	echo $json;
+?>
