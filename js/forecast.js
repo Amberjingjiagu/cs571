@@ -264,7 +264,7 @@ function search_submit(){
       	url2 = url2 + '?units=si';
       }
       // url2 is the request url
-      $.post("forecast.io.php", 
+      $.post("http://amber-env.elasticbeanstalk.com/", 
       	{url: url2},
       	function(data){
          	data_deploy(data, city, state, celsius);
