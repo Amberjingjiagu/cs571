@@ -259,7 +259,6 @@ function search_submit(){
 
       // if the first request succeed, we try to get the forecast info
       var url2 = "https://api.forecast.io/forecast/48ba3483c1b320fd8c8a4deb4754f897/"+(northeast_lat+southwest_lat)/2+","+(northeast_lng+southwest_lng)/2;
-      $('.test').text(url2);
       // check if we selected celsius, if we did, add &units=si
       if (celsius){
       	url2 = url2 + '?units=si';
