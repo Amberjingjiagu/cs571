@@ -45,10 +45,9 @@ function GetMap(latitude, longitude) {
 
 function time_transfer(ori_time){
 	var str = '';
-	var time = new Date(ori_time),
+	var time = new Date(ori_time*1000);
 	h = time.getHours(), // 0-24 format
 	m = time.getMinutes();
-	
 	if (h >= 12){
 		str = ('00' + (h - 12)).substr(-2) + ':' + ('00' + m).substr(-2) + ' PM';
 	} else if (h == 0){
@@ -61,8 +60,8 @@ function time_transfer(ori_time){
 }
 
 function time_day_week(ori_time){
-	var time = new Date(ori_time);
-	var day = time.getUTCDay();
+	var time = new Date(ori_time*1000);
+	var day = time.getDay();
 	var day_name = '';
 	switch (day){
 		case 0: day_name = 'Sunday'; break;
@@ -77,7 +76,25 @@ function time_day_week(ori_time){
 }
 
 function time_day_month(ori_time){
-	var time = new Date(ori_time);
+	var time = new Date(ori_time*1000);
+	var day = time.getDate();
+	var month = time.getMonth();
+	var result = "";
+	switch (month){
+		case 0: result = 'Jan'; break;
+		case 1: result = 'Feb'; break;
+		case 2: result = 'Mar'; break;
+		case 3: result = 'Apr'; break;
+		case 4: result = 'May'; break;
+		case 5: result = 'Jun'; break;
+		case 6: result = 'Jul'; break;
+		case 7: result = 'Aug'; break;
+		case 8: result = 'Sep'; break;
+		case 9: result = 'Oct'; break;
+		case 10: result = 'Nov'; break;
+		case 11: result = 'Dec'; break;
+	}
+	return result + " " + day;
 }
 
 function icon_transfer(ori_icon){
@@ -138,7 +155,7 @@ function data_deploy(data, city, state, celsius){
 		$('#current-weather-table #Dew-Point').append('℉');
 		$('#current-weather-table #Visibility').append('mi');
 	}
-
+	$('#facebook').attr("href","https://www.facebook.com/dialog/feed?app_id=1674194266127138&display=page&caption=Weather%20information%20from%20forecast.io&picture="+icon_transfer(cur.icon)+"&name=Current Weather in "+city+", "+state+"&description="+cur.summary+" "+$('#current-weather-sum #current-weather-temp').text()+"&link=http://thecasery.com/phptest&redirect_uri="+window.location.href+"");
 	GetMap(data.latitude, data.longitude);
 
 	/* part 2: display 24hour weather */
@@ -147,7 +164,7 @@ function data_deploy(data, city, state, celsius){
 	var hour = data.hourly;
 
 	// This is head
-	$('#oneday').append("<table class='table table-responsive' id='oneday-table'><thead><tr><th class='col-xs-3 col-sm-2'>Time</th><th class='col-xs-2 col-sm-2'>Summary</th><th class='col-xs-3 col-sm-2'>Cloud Cover</th><th class='col-xs-2 col-sm-2'>Temp</th><th class='col-xs-2 col-sm-2'>View Details</th></tr></thead></table>");
+	$('#oneday').append("<table class='table table-responsive' id='oneday-table'><thead><tr><th class='col-xs-2 col-sm-2'>Time</th><th class='col-xs-2 col-sm-2'>Summary</th><th class='col-xs-2 col-sm-2'>Cloud Cover</th><th class='col-xs-2 col-sm-2'>Temp</th><th class='col-xs-2 col-sm-2'>View Details</th></tr></thead></table>");
 
 	for (var i = 0; i < 24; i++){
 		var time_str = time_transfer(hour.data[i].time);
@@ -169,9 +186,9 @@ function data_deploy(data, city, state, celsius){
 			pressure = pressure + 'mb';
 		}
 
-		var sub_table = "<div class='collapse' id='tab"+i+"'><div class='well'><div class='table-responsive text-center'><table><tbody><tr style='font-size:16px;background-color:white;'><th class='text-center col-xs-3 col-sm-3'>Wind</th><th class='text-center col-xs-3 col-sm-3'>Humidity</th><th class='text-center col-xs-3 col-sm-3'>Visibility</th><th class='text-center col-xs-3 col-sm-3'>Pressure</th></tr><tr><td>"+wind+"</td><td>"+humidity+"</td><td>"+visibility+"</td><td>"+pressure+"</td></tr></tbody></table></div></div></div>";
+		var sub_table = "<div class='collapse' id='tab"+i+"'><div class='well'><table class='table text-center'><tbody><tr style='font-size:16px;background-color:white;'><th class='text-center col-xs-3 col-sm-3'>Wind</th><th class='text-center col-xs-3 col-sm-3'>Humidity</th><th class='text-center col-xs-3 col-sm-3'>Visibility</th><th class='text-center col-xs-3 col-sm-3'>Pressure</th></tr><tr><td>"+wind+"</td><td>"+humidity+"</td><td>"+visibility+"</td><td>"+pressure+"</td></tr></tbody></table></div></div>";
 
-		$('#oneday').append("<table class=''><tr class='oneday-tr'><td>"+time_str+"</td><td><img style='max-height:50px;' src='"+icon_url+"'></td><td>"+cloud_cover+"</td><td>"+temp+"</td><td class='text-center'><a data-toggle='collapse' aria-expanded='false' aria-controls='tab"+i+"' href='#tab"+i+"'><span class='glyphicon glyphicon-plus'></span></a></td></tr></table>"+sub_table);
+		$('#oneday').append("<table class='table'><tr class='oneday-tr'><td class='text-center col-xs-2 col-sm-2'>"+time_str+"</td><td class='col-xs-2 col-sm-2'><img style='max-height:50px;' src='"+icon_url+"'></td><td class='col-xs-2 col-sm-2'>"+cloud_cover+"</td><td class='col-xs-2 col-sm-2'>"+temp+"</td><td class='col-xs-2 col-sm-2'><a data-toggle='collapse' aria-expanded='false' aria-controls='tab"+i+"' href='#tab"+i+"'><span class='glyphicon glyphicon-plus'></span></a></td></tr></table>"+sub_table);
 	}
 
 	/* Part 3: 7 days forecast*/
@@ -179,12 +196,43 @@ function data_deploy(data, city, state, celsius){
 
 	for (var i = 1; i < 8; i++){
 		$('#day'+i).find('#day').text(time_day_week(day.data[i].time));
-		$('#day'+i).find('#month-day').text('Nov. 1st');
+		$('#day'+i).find('#month-day').text(time_day_month(day.data[i].time));
 		$('#day'+i).find('#icon').attr('src',icon_transfer(day.data[i].icon)).css('max-width','100px');
 		$('#day'+i).find('#min-temp').text(parseInt(day.data[i].temperatureMin)+'°');
 		$('#day'+i).find('#max-temp').text(parseInt(day.data[i].temperatureMax)+'°');
 	}
+	$('.day-week').off('click').on('click',function(){
+		var t = $('.day-week');
+		var j = 0;
+		for (var k = 1; k < 8; k++){
+			if (t.eq(k-1).find('#day').text() == $(this).find('#day').text()){
+				j = k;
+				break;
+			}
+		}
+		$('#tempModal p').text('');
+		$('#tempModal #tempModalLabel').text('Weather in '+city+' on '+time_day_month(day.data[j].time));
+		$('#tempModal #icon').attr('src',icon_transfer(day.data[j].icon));
+		$('#tempModal #summary').append(time_day_week(day.data[j].time)+':'+"<b style='color:orange'>"+day.data[j].summary+"</b>");
+		$('#tempModal #sunrise').text(time_transfer(day.data[j].sunriseTime));
+		$('#tempModal #sunset').text(time_transfer(day.data[j].sunsetTime));
+		$('#tempModal #humidity').text(day.data[j].humidity.toFixed(2) * 100+'%');
+		$('#tempModal #wind-speed').text(day.data[j].windSpeed);
+		$('#tempModal #visibility').text(day.data[j].visibility);
+		$('#tempModal #pressure').text(day.data[j].pressure);
 
+		if (celsius){
+			$('#tempModal #wind-speed').append('m/s');
+			$('#tempModal #visibility').append('km');
+			$('#tempModal #pressure').append('kPa');
+		} else {
+			$('#tempModal #wind-speed').append('mph');
+			$('#tempModal #visibility').append('mi');
+			$('#tempModal #pressure').append('mb');
+		}
+
+		$('#tempModal').modal('show');
+	});
 }
 
 
@@ -240,11 +288,13 @@ function search_clear(){
 function init(){
 	$('#form-submit').off('click').on('click', function(e){
 		e.preventDefault();
+		$('.div__results').css('display','block');
 		search_submit();
 	});
 	$('#form-clear').off('click').on('click', function(e){
 		e.preventDefault();	// This is important, to keep page not refresh!
 		search_clear();
+		$('.div__results').css('display','none');
 	});
 }
 
