@@ -1,6 +1,3 @@
-var autoscale_elem = function(){
-}
-
 function GetMap(latitude, longitude) {
 	var map = new OpenLayers.Map("current-weather-map");
 	var position = new OpenLayers.LonLat(longitude, latitude).transform(new OpenLayers.Projection("EPSG:4326"), new OpenLayers.Projection("EPSG:900913"));
@@ -16,14 +13,16 @@ function GetMap(latitude, longitude) {
 	);
 	var precipitation = new OpenLayers.Layer.XYZ(
 		"precipitation",
-		"http://${s}.tile.openweather.org/map/precipitation/${z}/${x}/${y}.png",
+		"http://${s}.tile.openweathermap.org/map/precipitation/${z}/${x}/${y}.png",
 		{
 			isBaseLayer: false,
-			opacity: 0.6,
+			opacity: 0.3,
 			sphericalMercator: true
 		}
 	);
+
 	map.addLayers([mapnik, cloud, precipitation]);
+	map.addControl(new OpenLayers.Control.LayerSwitcher());  
 	map.setCenter(position, 10);
 }
 
@@ -308,7 +307,6 @@ function init(){
 		e.preventDefault();	// This is important, to keep page not refresh!
 		search_clear();
 	});
-	window.resize = autoscale_elem;
 }
 
 $(document).ready(init);
