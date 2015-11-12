@@ -105,7 +105,7 @@ function data_deploy(data, city, state, celsius){
 	$('#current #icon').attr('src', icon_transfer(cur.icon));
 	$('#current #summary').text('Mostly '+cur.summary+' in '+city+', '+state);
 	$('#current #temperature').text(parseInt(cur.temperature));
-	$('#current #temperatureMinMax').text(parseInt(data.daily.data[0].temperatureMax)+'° | '+parseInt(data.daily.data[0].temperatureMin)+'°');
+	$('#current #temperatureMinMax').html('<font style="color:blue">' + parseInt(data.daily.data[0].temperatureMax)+'°</font> | <font style="color:green">'+parseInt(data.daily.data[0].temperatureMin)+'°</font>');
 
 	// This is precipIntensity
 	if (cur.precipIntensity < 0.002){
@@ -266,9 +266,10 @@ function search_submit(){
       if (celsius){
       	url2 = url2 + '?units=si';
       }
-      		$('.test').text(url2);
+      
       // url2 is the request url
-      $.post("http://amber-env.elasticbeanstalk.com/", 
+      // Test URL http://amber-env.elasticbeanstalk.com/?url=https://api.forecast.io/forecast/48ba3483c1b320fd8c8a4deb4754f897/34.027698,-118.2927895
+      $.get("http://amber-env.elasticbeanstalk.com/", 
       	{url: url2},
       	function(data){
       		$('#div-results').removeClass('hidden');
