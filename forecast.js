@@ -129,12 +129,12 @@ function data_deploy(data, city, state, celsius){
 	$('#current #sunsetTime').text(time_transfer(data.daily.data[0].sunsetTime));
 
 	if (celsius){
-		$('#current #temperature').append('<sup>℃</sup>');
+		$('#current #temperature').append('<sup style="font-size:20px">℃</sup>');
 		$('#current #windSpeed').append('m/s');
 		$('#current #dewPoint').append('℃');
 		$('#current #visibility').append('km');
 	} else {
-		$('#current #temperature').append('<sup>℉</sup>');
+		$('#current #temperature').append('<sup style="font-size:20px">℉</sup>');
 		$('#current #windSpeed').append('mph');
 		$('#current #dewPoint').append('℉');
 		$('#current #visibility').append('mi');
@@ -148,15 +148,20 @@ function data_deploy(data, city, state, celsius){
 	var hour = data.hourly;
 
 	// This is head
-	$('#oneday').append("<table class='table table-responsive' id='oneday-table'><thead><tr><th class='col-xs-2 col-sm-2'>Time</th><th class='col-xs-2 col-sm-2'>Summary</th><th class='col-xs-2 col-sm-2'>Cloud Cover</th><th class='col-xs-2 col-sm-2'>Temp</th><th class='col-xs-2 col-sm-2'>View Details</th></tr></thead></table>");
+	$('#oneday').append("<table class='table' id='oneday-table'><thead><tr><th class='col-xs-2 col-sm-2 text-center'>Time</th><th class='col-xs-3 col-sm-3 text-center'>Summary</th><th class='col-xs-3 col-sm-3 text-center'>Cloud Cover</th><th id='th-temp' class='col-xs-2 col-sm-2 text-center'>Temp</th><th class='col-xs-2 col-sm-2 text-center'>View Details</th></tr></thead></table>");
+	if (celsius){
+		$('#th-temp').append('(℃)');
+	} else {
+		$('#th-temp').append('(℉)');
+	}
 
 	for (var i = 0; i < 24; i++){
 		var time_str = time_transfer(hour.data[i].time);
 		var icon_url = icon_transfer(hour.data[i].icon);
-		var cloud_cover = hour.data[i].cloudCover.toFixed(2) * 100 + '%';
+		var cloud_cover = parseInt(hour.data[i].cloudCover * 100) + '%';
 		var temp = hour.data[i].temperature;
 		var wind = hour.data[i].windSpeed;
-		var humidity = hour.data[i].humidity.toFixed(2) * 100 + '%';
+		var humidity = parseInt(hour.data[i].humidity * 100) + '%';
 		var visibility = hour.data[i].visibility;
 		var pressure = hour.data[i].pressure;
 
@@ -172,7 +177,7 @@ function data_deploy(data, city, state, celsius){
 
 		var sub_table = "<div class='collapse' id='tab"+i+"'><div class='well'><table class='table text-center'><tbody><tr style='font-size:16px;background-color:white;'><th class='text-center col-xs-3 col-sm-3'>Wind</th><th class='text-center col-xs-3 col-sm-3'>Humidity</th><th class='text-center col-xs-3 col-sm-3'>Visibility</th><th class='text-center col-xs-3 col-sm-3'>Pressure</th></tr><tr><td>"+wind+"</td><td>"+humidity+"</td><td>"+visibility+"</td><td>"+pressure+"</td></tr></tbody></table></div></div>";
 
-		$('#oneday').append("<table class='table'><tr class='oneday-tr'><td class='text-center col-xs-2 col-sm-2'>"+time_str+"</td><td class='col-xs-2 col-sm-2'><img style='max-height:50px;' src='"+icon_url+"'></td><td class='col-xs-2 col-sm-2'>"+cloud_cover+"</td><td class='col-xs-2 col-sm-2'>"+temp+"</td><td class='col-xs-2 col-sm-2'><a data-toggle='collapse' aria-expanded='false' aria-controls='tab"+i+"' href='#tab"+i+"'><span class='glyphicon glyphicon-plus'></span></a></td></tr></table>"+sub_table);
+		$('#oneday').append("<table class='table'><tr class='oneday-tr'><td class='col-xs-2 col-sm-2 text-center'>"+time_str+"</td><td class='col-xs-3 col-sm-3 text-center'><img style='max-height:50px;' src='"+icon_url+"'></td><td class='col-xs-3 col-sm-3 text-center'>"+cloud_cover+"</td><td class='col-xs-2 col-sm-2 text-center'>"+temp+"</td><td class='col-xs-2 col-sm-2 text-center'><a data-toggle='collapse' aria-expanded='false' aria-controls='tab"+i+"' href='#tab"+i+"'><span class='glyphicon glyphicon-plus'></span></a></td></tr></table>"+sub_table);
 	}
 
 	/* Part 3: 7 days forecast*/

@@ -26,6 +26,54 @@ body{
 	padding: 0;
 }
 
+#oneweek{
+	background-color: #505050;
+}
+
+.day-week{
+	color: white;
+	width: 10%; 
+	min-height: 300px; 
+	display:inline-block;
+}
+
+@media screen and (max-width: 768px){
+	#oneweek{
+		background-color: rgba(255,255,255,0);
+	}
+	.day-week{
+		display: block;
+		width: 80%;
+		margin: 0 auto;
+		border-radius: 10%;
+	}
+}
+
+#oneday-table{
+	color: white;
+	background-color: #337ab7;
+}
+
+.min-temp{
+	font-size: 30px;
+}
+
+.max-temp{
+	font-size: 30px;
+}
+
+.modal-div{
+	display: inline-block;
+	width: 32%;
+	text-align: center;
+}
+
+@media screen and (max-width: 768px){
+	.modal-div{
+		width: 100%;
+		display: block;
+	}
+}
 /* Rewrite nav-tab color */
 .nav-tabs>li >a {
 	background-color: white;
@@ -50,6 +98,6 @@ body{
 }
 
 #space-search-form{
-	width: 150px;
+	width: 60px;
 	height: 50px;
 }

@@ -167,7 +167,7 @@
 	    			<div class='col-sm-6'>
 		    			<p id='summary'></p>
 		    			<h1 id='temperature'></h1>
-		    			<a id='facebook' href="">
+		    			<a id='facebook' href="" style='float:right'>
 		    				<img style="width:24px;" src='http://cs-server.usc.edu:45678/hw/hw8/images/fb_icon.png'/>
 		    			</a>
 		    			<p id='temperatureMinMax'></p>
@@ -201,75 +201,75 @@
 	    			</tr>
 	    		</table>
 	    	</div>
-	    	<div id='current-weather-map' class='bg-color-white col-sm-6'>
+	    	<div id='current-weather-map' class='bg-color-white col-sm-6' style='height:470px;'>
 	    	</div>
 	    </div>
 	    <div role="tabpanel" class="tab-pane bg-color-white" id="oneday">
 	    </div>
 	    <div role="tabpanel" class="tab-pane row" id="oneweek">
 	    	<div class='row'>
-		    	<div id='day1' class='day-week' style='background-color:#367db5; width: 13%; min-height: 400px; display:inline-block;'>
+		    	<div id='day1' class='day-week' style='background-color:#367db5;'>
 		    		<p id='day'></p>
 		    		<p id='month-day'></p>
 		    		<img id='icon'/>
 		    		<p>Min Temp</p>
-		    		<p id='min-temp'></p>
+		    		<p id='min-temp' class='min-temp'></p>
 		    		<p>Max Temp</p>
-		    		<p id='max-temp'></p>
+		    		<p id='max-temp' class='max-temp'></p>
 		    	</div>
-		    	<div id='day2' class='day-week' style='background-color:#ec4444; width: 13%; min-height: 400px; display:inline-block;'>
+		    	<div id='day2' class='day-week' style='background-color:#ec4444;'>
 		    		<p id='day'></p>
 		    		<p id='month-day'></p>
 		    		<img id='icon'/>
 		    		<p>Min Temp</p>
-		    		<p id='min-temp'></p>
+		    		<p id='min-temp' class='min-temp'></p>
 		    		<p>Max Temp</p>
-		    		<p id='max-temp'></p>
+		    		<p id='max-temp' class='max-temp'></p>
 		    	</div>
-		    	<div id='day3' class='day-week' style='background-color:#e58d4f; width: 13%; min-height: 400px; display:inline-block;'>
+		    	<div id='day3' class='day-week' style='background-color:#e58d4f;'>
 		    		<p id='day'></p>
 		    		<p id='month-day'></p>
 		    		<img id='icon'/>
 		    		<p>Min Temp</p>
-		    		<p id='min-temp'></p>
+		    		<p id='min-temp' class='min-temp'></p>
 		    		<p>Max Temp</p>
-		    		<p id='max-temp'></p>
+		    		<p id='max-temp' class='max-temp'></p>
 		    	</div>
-		    	<div id='day4' class='day-week' style='background-color:#a7a439; width: 13%; min-height: 400px; display:inline-block;'>
+		    	<div id='day4' class='day-week' style='background-color:#a7a439;'>
 		    		<p id='day'></p>
 		    		<p id='month-day'></p>
 		    		<img id='icon'/>
 		    		<p>Min Temp</p>
-		    		<p id='min-temp'></p>
+		    		<p id='min-temp' class='min-temp'></p>
 		    		<p>Max Temp</p>
-		    		<p id='max-temp'></p>
+		    		<p id='max-temp' class='max-temp'></p>
 		    	</div>
-		    	<div id='day5' class='day-week' style='background-color:#f37c7e; width: 13%; min-height: 400px; display:inline-block;'>
+		    	<div id='day5' class='day-week' style='background-color:#bf5fff;'>
 		    		<p id='day'></p>
 		    		<p id='month-day'></p>
 		    		<img id='icon'/>
 		    		<p>Min Temp</p>
-		    		<p id='min-temp'></p>
+		    		<p id='min-temp' class='min-temp'></p>
 		    		<p>Max Temp</p>
-		    		<p id='max-temp'></p>
+		    		<p id='max-temp' class='max-temp'></p>
 		    	</div>
-		    	<div id='day6' class='day-week' style='background-color:#ce4571; width: 13%; min-height: 400px; display:inline-block;'>
+		    	<div id='day6' class='day-week' style='background-color:#f37c7e;'>
 		    		<p id='day'></p>
 		    		<p id='month-day'></p>
 		    		<img id='icon'/>
 		    		<p>Min Temp</p>
-		    		<p id='min-temp'></p>
+		    		<p id='min-temp' class='min-temp'></p>
 		    		<p>Max Temp</p>
-		    		<p id='max-temp'></p>
+		    		<p id='max-temp' class='max-temp'></p>
 		    	</div>
-		    	<div id='day7' class='day-week' style='background-color:#f0f0f0; width: 13%; min-height: 400px; display:inline-block;'>
+		    	<div id='day7' class='day-week' style='background-color:#ce4571;'>
 		    		<p id='day'></p>
 		    		<p id='month-day'></p>
 		    		<img id='icon'/>
 		    		<p>Min Temp</p>
-		    		<p id='min-temp'></p>
+		    		<p id='min-temp' class='min-temp'></p>
 		    		<p>Max Temp</p>
-		    		<p id='max-temp'></p>
+		    		<p id='max-temp' class='max-temp'></p>
 		    	</div>
 		    </div>
 				<!-- Modal -->
@@ -281,30 +281,16 @@
 				        <h4 class="modal-title" id="tempModalLabel"></h4>
 				      </div>
 				      <div class="modal-body">
-				      	<img id='icon'/>
-				      	<p id='summary'></p>
-				     		<table class='table'>
-				     			<tr>
-				     				<th class='col-sm-4'>Sunrise Time</th>
-				     				<th class='col-sm-4'>Sunset Time</th>
-				     				<th class='col-sm-4'>Humidity</th>
-				     			</tr>
-				     			<tr>
-				     				<td class='col-sm-4' id='sunrise'></td>
-				     				<td class='col-sm-4' id='sunset'></td>
-				     				<td class='col-sm-4' id='humidity'></td>
-				     			</tr>
-				     			<tr>
-				     				<th class='col-sm-4'>Wind Speed</th>
-				     				<th class='col-sm-4'>Visibility</th>
-				     				<th class='col-sm-4'>Pressure</th>
-				     			</tr>
-				     			<tr>
-				     				<td class='col-sm-4' id='wind-speed'></td>
-				     				<td class='col-sm-4' id='visibility'></td>
-				     				<td class='col-sm-4' id='pressure'></td>
-				     			</tr>
-				     		<table>
+				      	<img id='icon' style='max-width:150px'/>
+				      	<p id='summary' style='font-size:28px'></p>
+				     		<div>
+				     			<div class='modal-div'><h3>Sunrise Time</h3><p id='sunrise'></p></div>
+				     			<div class='modal-div'><h3>Sunset Time</h3><p id='sunset'></p></div>
+				     			<div class='modal-div'><h3>Humidity</h3><p id='humidity'></p></div>
+				     			<div class='modal-div'><h3>Wind Speed</h3><p id='wind-speed'></p></div>
+				     			<div class='modal-div'><h3>Visibility</h3><p id='visibility'></p></div>
+				     			<div class='modal-div'><h3>Pressure</h3><p id='pressure'></p></div>
+				     		</div>
 				      </div>
 				      <div class="modal-footer">
 				        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
