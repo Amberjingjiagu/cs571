@@ -301,10 +301,12 @@ function search_clear(){
 function init(){
 	$('#form-submit').off('click').on('click', function(e){
 		e.preventDefault();
+		$('#current-weather-map div').remove();
 		search_submit();
 	});
 	$('#form-clear').off('click').on('click', function(e){
 		e.preventDefault();	// This is important, to keep page not refresh!
+		$('#current-weather-map div').remove();
 		search_clear();
 	});
 }
